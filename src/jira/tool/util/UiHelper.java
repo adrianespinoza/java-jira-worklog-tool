@@ -1,9 +1,6 @@
 package jira.tool.util;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
+import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
 import org.json.JSONArray;
@@ -11,6 +8,11 @@ import org.json.JSONObject;
 
 public class UiHelper 
 {			
+	public static boolean isEmpty(String str) 
+	{
+		return str == null || str.trim().length() == 0; 
+	}
+	
 	public static void setWorklogTableModelRows(DefaultTableModel dtm, String jsonString, String worklogDate)
 	{
 		JSONObject jsonObject = new JSONObject(jsonString);
@@ -43,5 +45,19 @@ public class UiHelper
 				}
 			}
 		}
+	}
+	
+	public static DefaultListModel<String> buildIssueTypeDefaultListModel(String issueTypesStr)
+	{
+		DefaultListModel<String> model = new DefaultListModel<String>();
+		JSONArray issueTypes = new JSONArray(issueTypesStr);
+		
+		for(int i = 0; i < issueTypes.length(); ++i)
+		{
+			JSONObject issueType = issueTypes.getJSONObject(i);
+			model.addElement(issueType.getString(Constants.NAME));
+		}
+		
+		return model;
 	}
 }

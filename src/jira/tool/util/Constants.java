@@ -20,6 +20,9 @@ public class Constants
 	public static final String WARNING_MESSAGES = "warningMessages";
 	
 	public static final String DATE_FORMAT = "yyyy-MM-dd";
+	public static final String DELIMITER = ",";
 	
 	public static final String POST = "POST";
+	public static final String GET = "GET";
+	
 }

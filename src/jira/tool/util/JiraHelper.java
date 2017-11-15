@@ -10,11 +10,16 @@ import org.json.JSONObject;
 
 public class JiraHelper 
 {
-private static String worklogJqlTemplate = "issuetype IN (%s) and assignee IN (%s) AND worklogDate = \"%s\"";
+	private static String worklogJqlTemplate = "issuetype IN (%s) and assignee IN (%s) AND worklogDate = \"%s\"";
+	private static String worklogJqlTemplate2 = "assignee IN (%s) AND worklogDate = \"%s\"";
 	
-	public static String buildWorklogRequestBody(String assignees, String worklogDate)
+	public static String buildWorklogRequestBody(String assignees, String worklogDate, String issuetype)
 	{
-		String jql = String.format(worklogJqlTemplate, "Sub-task", assignees, worklogDate);
+		String jql = String.format(worklogJqlTemplate2, assignees, worklogDate);		
+		if(issuetype != null)
+		{
+			jql = String.format(worklogJqlTemplate, issuetype, assignees, worklogDate);
+		}
 		
 		JSONObject json = new JSONObject();
 		json.put(Constants.JQL, jql);

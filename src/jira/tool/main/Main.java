@@ -24,7 +24,22 @@ import jira.tool.util.UiHelper;
 
 public class Main 
 {
-	public static void main(String[] args) throws ParseException {
+	public static void main(String[] args) throws ParseException 
+	{
+		postRequest();
+	}
+	
+	private static void getRequest()
+	{
+		String url = "https://agile.pros.com/rest/api/2/issuetype";
+		JiraConnector connector = new JiraConnector(url, "ahuanca", "Adri@n1!");
+		
+		String jsonString = connector.doRequest("GET", null);
+		System.out.println(jsonString);
+	}
+	
+	private static void postRequest() throws ParseException
+	{
 		String url = "https://agile.pros.com/rest/api/2/search";
 		String method = "POST";
 		
@@ -35,7 +50,7 @@ public class Main
 		String worklogDate =  sdf.format(dateObject);
 		
 		String assignees = "mpardo,ahuanca,lfernand,kpaniagu";		
-		String json = JiraHelper.buildWorklogRequestBody(assignees, worklogDate);		
+		String json = JiraHelper.buildWorklogRequestBody(assignees, worklogDate, null);		
 		JiraConnector connector = new JiraConnector(url, "ahuanca", "Adri@n1!");
 		
 		String jsonString = connector.doRequest(method, json);		
